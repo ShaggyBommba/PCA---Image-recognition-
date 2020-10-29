@@ -1,6 +1,7 @@
 import pandas as pd
 from skimage import io
 import os
+import sys
 import ImageProcessing as ip
 
 
@@ -29,11 +30,10 @@ def read_data(path):
 
     #creating a matrix consisting of each image as a columnvector
     df = pd.DataFrame(data) 
-    return df
+    return df.T
 
 def standardization(data):
     ''' standardizing data so mean is zero '''
-    for column in data.columns:
-        data[column] = data[column] - data[column].mean()
-
-
+    mean = data.mean(axis=0)
+    data = data -mean
+    return data
