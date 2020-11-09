@@ -7,6 +7,7 @@ import ImageProcessing as ip
 
 def read_data(path):
     ''' reads images from file'''
+    print("reading images from file")
     data = dict()
     for file in os.listdir(path):
 

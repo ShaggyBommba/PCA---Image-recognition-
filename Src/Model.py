@@ -6,33 +6,41 @@ import matplotlib.pyplot as plt
 
 class PCA():
     ''' '''
-    matrix = None 
     principle_axis = None
+    principle_proj = None
     pcrinciple_compenent = None
 
-
-    def __init__(self, data):
-        ''' Constructor'''
-        self.matrix = data.values
-
-    def fit(self):
+    def fit(self,data):
         ''' ''' 
-        U, S, VH = lin.svd(self.matrix, full_matrices=False)
-        self.pcrinciple_compenent = U*S
-        self.principle_axis = VH
-        self.matrix = self.matrix * VH
-        return self.matrix
+        print("fitting model")
+        U, S, VH = lin.svd(data, full_matrices=False)
+        self.pcrinciple_compenent = S
+        self.principle_axis = U
+        self.principle_proj = VH
 
-    def predict(self):
+    def predict(self, img):
         ''' ''' 
         pass
 
     def plot(self):
-        weights = np.diagonal(self.pcrinciple_compenent)
-        tot_weights = weights.sum()
-        weights = weights.cumsum()/tot_weights
+        index = [i for i in range(30)]
+        for i in range(5):
+            plt.subplot(2, 3, i+1)
+            plt.bar(index, self.principle_proj[i,0:30])
 
-        plt.plot([i for i in range(0,len(weights))], weights)
+        weights = self.pcrinciple_compenent.cumsum()/self.pcrinciple_compenent.sum()
+        plt.subplot(2, 3, 6)
+        plt.plot([i for i in range(0,len(weights))], weights)    
         plt.show()
 
-
+    def save(self):
+        print("Saving data")
+        np.savetxt("Data/PCA/pcrinciple_compenent.csv", self.pcrinciple_compenent, delimiter=",")
+        np.savetxt("Data/PCA/principle_proj.csv", self.principle_proj, delimiter=",")
+        np.savetxt("Data/PCA/principle_axis.csv", self.principle_axis, delimiter=",")
+    
+    def load(self):
+        print("Loading data")
+        np.loadtxt("Data/PCA/pcrinciple_compenent.csv", self.pcrinciple_compenent, delimiter=",")
+        np.loadtxt("Data/PCA/principle_proj.csv", self.principle_proj, delimiter=",")
+        np.loadtxt("Data/PCA/principle_axis.csv", self.principle_axis, delimiter=",")
