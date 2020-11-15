@@ -10,7 +10,7 @@ The dataset used contains 7 faces, where each face contains 11 unique images. Be
 
 To determine weather an image is related with another image one must understand how each componenet of the images are related. An effective measurment which could explain how each component is related is the covariance and corellation between the components of the images. This could be done by constructing a covariance matrix. To consturct a covariance matrix from A the matrix has to be standardize. To standardize the matrix one has to calculate the average of each component. The vectors obtained by taking the average of the component from  each face represents the average face. The average face calculated from the dataset in the repository result in the following face:
 
-[IMG]
+![Image of average face](https://github.com/ShaggyBommba/PCA---Image-recognition-/blob/main/Output/Mean_face.png)
 
 Once the matrix has been standardized the covariance matrix could be calculatad. The covariance matrix is calculated by multipltying A with its transpose. However, the size of such a matrix would be large. Therefore, the transpose of A is multiplied with itself which result in a substantially smaller matrix. Later on we will show how these two matrecies are related.  
 
@@ -22,7 +22,7 @@ A is a diagonalizable matrix as it is square. Therefore, we can calculate its ei
 
 These eigenvector represents the faces which each face consist of. In layman terms these eigenvectors are referred to as eigenfaces. The eigenfaces obtained from this dataset are presented below: 
 
-[FIG]
+![Eigenfaces](https://github.com/ShaggyBommba/PCA---Image-recognition-/blob/main/Output/Eigenfaces.png)
 
 However, how could the be used to predict the face of a person. Well by transforming the face to the new vector space we can analyze the closeness to other faces by using well established methods such as KNN.
 
