@@ -60,6 +60,7 @@ def split(X, Y, p=0.20, seed=None):
 
 def standardization(data):
     ''' standardizing data so mean is zero '''
-    mean = data.mean(axis=1,keepdims=True)
+    mean = data.mean(axis=0,keepdims=True)
     data = data -mean
-    return data
+    print(data[:,0].mean())
+    return data, mean.astype(int)

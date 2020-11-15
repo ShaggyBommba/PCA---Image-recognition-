@@ -14,6 +14,7 @@ class PCA():
     X_proj = None
     principle_axis = None
     pcrinciple_compenent = None
+    mean_face = None
 
 
     def __init__(self,data,label):
@@ -25,7 +26,7 @@ class PCA():
     def fit(self):
         ''' ''' 
         print("fitting model")
-        X = dp.standardization(self.X)
+        X, self.mean_face = dp.standardization(self.X)
         C = X.dot(X.T)
         S,W = lin.eigh(C)
 
@@ -53,8 +54,7 @@ class PCA():
             predictons.append(pred)
         return np.array(predictons)
 
-
-    def plot_Eigenfaces(self, row, col):
+    def plot_eigenfaces(self, row, col):
         col = int(col)
         row = int(row)
         numbeer_pictures = int(row*col)
@@ -67,6 +67,16 @@ class PCA():
             v.resize(shape)
             plt.imshow(v, cmap='gray')
             plt.title("Eigenface_{}".format(i+1))
+
+        plt.tight_layout()
+        plt.show()
+
+    def plot_meanface(self):
+        shape = (243,320)
+        v = self.mean_face.copy()
+        v.resize(shape)
+        plt.imshow(v, cmap='gray')
+        plt.title("Average face")
         
         plt.show()
 
@@ -78,6 +88,7 @@ class PCA():
              plt.title("Pcrinciple Axis: P{} & P{}".format(i,i+1))
              plt.xlabel("P{}".format(i))
              plt.ylabel("P{}".format(i+1))
+        plt.tight_layout()
         plt.show()
     
     def plot_eigenvalues(self):
@@ -87,6 +98,9 @@ class PCA():
         plt.xlabel("number of axis")
         plt.ylabel("Variance covered")
         plt.show()
+    
+
+
 
              
 
